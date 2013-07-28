@@ -23,18 +23,14 @@ object List {
   }
 
   def dropWhile[A](ls: List[A]) (f: A => Boolean): List[A] = ls match {
-
     case Nil => Nil
     case Cons(head, tail) if f(head) => dropWhile(tail)(f) 
     case _ => ls
-
   }
 
   def drop[A](n: Int, ls: List[A]): List[A] = n match {
-
     case x if x <= 0 => ls
     case x if x > 0 => drop(x-1, List.tail(ls))
-
   }
 
   def tail[A](ls: List[A]): List[A] = ls match {
