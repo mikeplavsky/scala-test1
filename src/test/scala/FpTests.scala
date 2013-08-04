@@ -5,6 +5,27 @@ class FpTests extends FunSuite with ShouldMatchers {
 
   import fpinscala.datastructures.{List => L1,Cons,Nil};
 
+  test("append") {
+  
+    val x1 = L1(1,2,3)
+    val x2 = L1(4,5,6,7)
+
+    L1.append(x1, x2) should equal (L1(1,2,3,4,5,6))
+
+  }
+
+  test("setHead") {
+  
+    val x = L1(1,2,3,4)
+
+    val res = L1.setHead(x,5)
+    res should equal (L1(5,2,3,4))
+
+    L1.setHead(Nil,1) should equal (L1(1))
+
+  }
+
+
   test("drop wile predicat is true") {
 
     val x = L1(1,2,3,4,5)

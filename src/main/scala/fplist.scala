@@ -22,6 +22,18 @@ object List {
     else Cons(as.head, apply(as.tail: _*))
   }
 
+  def append[A](a1: List[A], a2: List[A]): List[A] = a1 match {
+  
+    case Nil => a2
+    case Cons(h,t) => Cons(h, append(t, a2))
+
+  }
+
+  def setHead[A](ls: List[A], h: A): List[A] = ls match {
+    case Nil => Cons(h,Nil)
+    case Cons(_,tail) => Cons(h,tail)
+  }
+
   def dropWhile[A](ls: List[A]) (f: A => Boolean): List[A] = ls match {
     case Nil => Nil
     case Cons(head, tail) if f(head) => dropWhile(tail)(f) 
