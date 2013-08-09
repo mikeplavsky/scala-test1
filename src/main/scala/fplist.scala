@@ -6,20 +6,29 @@ case class Cons[+A](head: A, tail: List[A]) extends List[A]
 
 object List {
   
-  def sum(ints: List[Int]): Int = ints match {
-    case Nil => 0
-    case Cons(x,xs) => x + sum(xs)
+  def foldLeft[A,B](l: List[A], z: B)(f: (A,B) => B): B = l match {
+    case Nil => z
+    case Cons(h,t) => foldLeft(t,f(h,z))(f)
   }
 
-  def product(ds: List[Double]): Double = ds match {
-    case Nil => 1.0
-    case Cons(0.0,_) => 0.0
-    case Cons(x,xs) => x * product(xs)
+  def foldRight[A,B](l: List[A], z: B)(f: (A,B) => B): B = l match {
+    case Nil => z
+    case Cons(h,t) => f(h,foldRight(t,z)(f))
   }
+
+  def length[A](ls: List[A]): Int = foldRight(ls,0) {(x,y) => 1 + y}
+
+  def sum(ints: List[Int]): Int = foldRight(ints, 0){ _ + _ }
+  def product(ds: List[Double]): Double = foldRight(ds,1.0) {_ * _}
 
   def apply[A](as: A*): List[A] = { 
     if (as.isEmpty) Nil
     else Cons(as.head, apply(as.tail: _*))
+  }
+
+  def init[A](ls: List[A]): List[A] = ls match {
+    case Cons(h,Nil) => Nil
+    case Cons(h,t) => Cons(h,init(t))
   }
 
   def append[A](a1: List[A], a2: List[A]): List[A] = a1 match {
