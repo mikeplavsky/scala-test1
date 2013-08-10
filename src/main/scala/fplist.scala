@@ -5,7 +5,7 @@ case object Nil extends List[Nothing]
 case class Cons[+A](head: A, tail: List[A]) extends List[A]
 
 object List {
-  
+
   def foldLeft[A,B](l: List[A], z: B)(f: (A,B) => B): B = l match {
     case Nil => z
     case Cons(h,t) => foldLeft(t,f(h,z))(f)
@@ -33,12 +33,7 @@ object List {
     case Cons(h,t) => Cons(h,init(t))
   }
 
-  def append[A](a1: List[A], a2: List[A]): List[A] = a1 match {
-  
-    case Nil => a2
-    case Cons(h,t) => Cons(h, append(t, a2))
-
-  }
+  def append[A](a1: List[A], a2: List[A]): List[A] = foldRight(a1, a2) { Cons(_,_) }
 
   def setHead[A](ls: List[A], h: A): List[A] = ls match {
     case Nil => Cons(h,Nil)
