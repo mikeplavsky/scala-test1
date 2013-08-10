@@ -11,9 +11,11 @@ object List {
     case Cons(h,t) => foldLeft(t,f(h,z))(f)
   }
 
-  def foldRight[A,B](l: List[A], z: B)(f: (A,B) => B): B = l match {
+  def foldRight[A,B](l: List[A], z: B)(f: (A,B) => B): B = foldLeft(reverse(l), z)(f)
+
+  def foldRight1[A,B](l: List[A], z: B)(f: (A,B) => B): B = l match {
     case Nil => z
-    case Cons(h,t) => f(h,foldRight(t,z)(f))
+    case Cons(h,t) => f(h,foldRight1(t,z)(f))
   }
 
   def reverse[A](ls: List[A]): List[A] = foldLeft(ls, List[A]()) {Cons(_,_)}
