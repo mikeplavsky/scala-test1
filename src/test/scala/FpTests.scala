@@ -5,6 +5,13 @@ class FpTests extends FunSuite with ShouldMatchers {
 
   import fpinscala.datastructures.{List => L1,Cons,Nil};
 
+  test("reverse") {
+  
+    val x = L1(1,2,3,4)
+    L1.reverse(x) should equal (L1(4,3,2,1))
+
+  }
+
   test("init") {
 
     val x = L1(1,2,3,4)

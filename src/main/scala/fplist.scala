@@ -16,6 +16,8 @@ object List {
     case Cons(h,t) => f(h,foldRight(t,z)(f))
   }
 
+  def reverse[A](ls: List[A]): List[A] = foldLeft(ls, List[A]()) {Cons(_,_)}
+
   def length[A](ls: List[A]): Int = foldRight(ls,0) {(x,y) => 1 + y}
 
   def sum(ints: List[Int]): Int = foldRight(ints, 0){ _ + _ }
