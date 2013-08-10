@@ -5,6 +5,14 @@ class FpTests extends FunSuite with ShouldMatchers {
 
   import fpinscala.datastructures.{List => L1,Cons,Nil};
 
+
+  test("flatten") {
+
+    val x1 = L1(L1(1,2,3),L1(4,5,6),L1(7,8,9))
+    L1.flatten(x1) should equal (L1(1,2,3,4,5,6,7,8,9))
+  
+  }
+
   test("reverse") {
   
     val x = L1(1,2,3,4)
