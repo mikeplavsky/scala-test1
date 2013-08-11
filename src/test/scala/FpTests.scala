@@ -5,12 +5,26 @@ class FpTests extends FunSuite with ShouldMatchers {
 
   import fpinscala.datastructures.{List => L1,Cons,Nil};
 
+  test("hasSubsequence") {
+
+    L1.hasSubsequence(L1(1,2,3,4),L1(2,3)) should equal (true)
+    L1.hasSubsequence(L1(1,2,3,4),L1(7,3)) should equal (false)
+
+  } 
+
+
   test("zip") {
 
     L1.zip(L1(1,2,3),L1(2,3,4)) {_ + _} should equal (L1(3,5,7))
     L1.zip(L1(1,2),L1(2,3,4)) {_ + _} should equal (L1(3,5))
-    L1.zip(L1(1,2,3),L1(2,5)) {_ + _} should equal (L1(3,5))
+    L1.zip(L1(1,2,3),L1(2,5)) {_ + _} should equal (L1(3,7))
+
+    val r = L1.foldRight(L1.zip(L1(1,2,3),L1(2,5)) {_ == _}, true) {_ && _} 
+    r should equal (false)
   
+    val r1 = L1.foldRight(L1.zip(L1(2,5,3),L1(2,5)) {_ == _}, true) {_ && _} 
+    r1 should equal (false)
+
   }
 
   test("flatMap") {
