@@ -17,7 +17,14 @@ object List {
     append(f(x),y)  
   }
 
-  def filter[A](l: List[A])(f: (A) => Boolean): List[A] = foldRight(l, List[A]()) {(x,y) =>
+  def filter[A](l: List[A])(f: A => Boolean): List[A] = flatMap(l) {x => 
+    f(x) match {
+      case false => List[A](x) 
+      case true => List[A]()
+    }
+  }
+
+  def filter1[A](l: List[A])(f: (A) => Boolean): List[A] = foldRight(l, List[A]()) {(x,y) =>
     f(x) match {
       case true => y
       case false => Cons(x,y)
