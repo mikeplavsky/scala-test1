@@ -5,6 +5,14 @@ class FpTests extends FunSuite with ShouldMatchers {
 
   import fpinscala.datastructures.{List => L1,Cons,Nil};
 
+  test("zip") {
+
+    L1.zip(L1(1,2,3),L1(2,3,4)) {_ + _} should equal (L1(3,5,7))
+    L1.zip(L1(1,2),L1(2,3,4)) {_ + _} should equal (L1(3,5))
+    L1.zip(L1(1,2,3),L1(2,5)) {_ + _} should equal (L1(3,5))
+  
+  }
+
   test("flatMap") {
   
     L1.flatMap(L1(1,2,3)) {x => L1(x,x)} should equal (L1(1,1,2,2,3,3))

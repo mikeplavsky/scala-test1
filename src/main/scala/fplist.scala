@@ -13,6 +13,14 @@ object List {
 
   def foldRight[A,B](l: List[A], z: B)(f: (A,B) => B): B = foldLeft(reverse(l), z)(f)
 
+  def zip[A,B](l1: List[A], l2: List[A])(f: (A,A) => B): List[B] = l1 match {
+    case Nil => Nil
+    case Cons(h,tail) => l2 match {
+      case Nil => Nil
+      case Cons(h1,tail1) => Cons(f(h,h1), zip(tail,tail1)(f))
+    }
+  }
+
   def flatMap[A,B](l: List[A])(f: A => List[B]): List[B] = foldRight(l, List[B]()) {(x,y) =>
     append(f(x),y)  
   }
