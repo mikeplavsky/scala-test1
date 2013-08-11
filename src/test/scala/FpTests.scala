@@ -6,6 +6,16 @@ class FpTests extends FunSuite with ShouldMatchers {
   import fpinscala.datastructures.{List => L1,Cons,Nil};
 
 
+  test("add") {
+
+    val x = L1(1,2,3,4)
+    L1.add(x) should equal (L1(2,3,4,5))
+
+    val x1 = L1(0.0,0.1,0.2)
+    L1.convert(x1) should equal (L1("0.0","0.1","0.2"))
+  
+  }
+
   test("flatten") {
 
     val x1 = L1(L1(1,2,3),L1(4,5,6),L1(7,8,9))

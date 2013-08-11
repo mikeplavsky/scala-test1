@@ -13,6 +13,11 @@ object List {
 
   def foldRight[A,B](l: List[A], z: B)(f: (A,B) => B): B = foldLeft(reverse(l), z)(f)
 
+  def add(l: List[Int]) = map(l) {_ + 1}
+  def convert(l: List[Double]) = map(l) {_.toString()}
+
+  def map[A,B](l: List[A])(f: A => B): List[B] = foldRight(l, List[B]()) {(x,y) => Cons(f(x),y)}
+
   def foldRight1[A,B](l: List[A], z: B)(f: (A,B) => B): B = l match {
     case Nil => z
     case Cons(h,t) => f(h,foldRight1(t,z)(f))
