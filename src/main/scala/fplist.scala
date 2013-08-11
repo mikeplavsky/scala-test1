@@ -13,6 +13,17 @@ object List {
 
   def foldRight[A,B](l: List[A], z: B)(f: (A,B) => B): B = foldLeft(reverse(l), z)(f)
 
+  def flatMap[A,B](l: List[A])(f: A => List[B]): List[B] = foldRight(l, List[B]()) {(x,y) =>
+    append(f(x),y)  
+  }
+
+  def filter[A](l: List[A])(f: (A) => Boolean): List[A] = foldRight(l, List[A]()) {(x,y) =>
+    f(x) match {
+      case true => y
+      case false => Cons(x,y)
+    }
+  }
+
   def add(l: List[Int]) = map(l) {_ + 1}
   def convert(l: List[Double]) = map(l) {_.toString()}
 
