@@ -13,8 +13,11 @@ object List {
 
   def foldRight[A,B](l: List[A], z: B)(f: (A,B) => B): B = foldLeft(reverse(l), z)(f)
 
-  def hasSubsequence[A](l: List[A], sub: List[A]): Boolean = {true}
-
+  def hasSubsequence[A](l: List[A], sub: List[A]): Boolean = l match {
+      case Nil => false
+      case Cons(_,_) if foldRight(zip(l,sub){_==_},true){_&&_} => true 
+      case Cons(h,tail) => hasSubsequence(tail,sub) 
+  }
 
   def zip[A,B](l1: List[A], l2: List[A])(f: (A,A) => B): List[B] = l1 match {
     case Nil => Nil

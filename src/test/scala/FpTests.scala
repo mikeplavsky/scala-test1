@@ -9,6 +9,7 @@ class FpTests extends FunSuite with ShouldMatchers {
 
     L1.hasSubsequence(L1(1,2,3,4),L1(2,3)) should equal (true)
     L1.hasSubsequence(L1(1,2,3,4),L1(7,3)) should equal (false)
+    L1.hasSubsequence(L1(1,2,3,4),Nil) should equal (true)
 
   } 
 
@@ -23,7 +24,7 @@ class FpTests extends FunSuite with ShouldMatchers {
     r should equal (false)
   
     val r1 = L1.foldRight(L1.zip(L1(2,5,3),L1(2,5)) {_ == _}, true) {_ && _} 
-    r1 should equal (false)
+    r1 should equal (true)
 
   }
 
